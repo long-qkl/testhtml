@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    .one{
+        width: 500px;
+        height: 500px;
+        background-color: red;
+        /* margin: auto; */
+        margin-top: 200px;
+        position: relative;
+    }
+    .pic{
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        /* left: 10px; */
+        /* top: 0; */
+        pointer-events: none;
+    }
+</style>
+<body>
+    <div class="one">
+        <img class="pic" src="https://pic2.zhimg.com/80/v2-e7336dc460a15ecbb4aa79b1f73c0921_720w.jpg" alt="">
+    </div>
+</body>
+<script>
+    var classname=document.querySelector(".one");
+    var pic=document.querySelector(".pic");
+    console.log(classname,"=========",pic)
+
+    classname.addEventListener('mousemove',(e)=>{
+        console.log(123)
+        // pic.style.top=pic.offsettop
+        // console.log(e.offsetX,"===",e.offsetY)
+        pic.style.top=e.offsetY-25+"px";
+        pic.style.left=e.offsetX-25+"px";
+    })
+</script>
+</html>
