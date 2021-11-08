@@ -1,24 +1,35 @@
 // import { Component } from 'react';
 import React from 'react';
 import './CSS/Todo.min.css';
+import bgimg from './images/122.jpg';
 
 class Todo extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            list:[],
+            lists:['12','32','fr'],
+            // finishList:['333','321'],
             finishList:[],
         }
     }
     
-
     render(){
-        // const todolists=list.map(()=>{
-        //     return <li>各事件</li>
-        // })
+        const todolists=this.state.lists.map((list,index)=>{
+            return <li key={index}>{list}</li>
+        });
+        console.log(this.state.finishList);
+        const finishList=this.state.finishList;
+        const finishlists=finishList.map((list,index)=>{
+            // return <li key={index}>{list}</li>
+            if(this.state.finishList){
+                return <li key={index}>{list}</li>
+            }else{
+                return <li>nothing</li>
+            }
+        })
         return(
             <div className="bbg">
-                <img src="https://www.shijuepi.com/uploads/allimg/200918/1-20091Q10420.jpg" alt="图片接受失败"></img>
+                <img src={bgimg} alt="图片接受失败"></img>
                 <div className="sub">
                     <span>任务列表</span>
                     <div>
@@ -27,9 +38,7 @@ class Todo extends React.Component {
                                 <span>待办</span>
                                 <div className="lists">
                                     <ul>
-                                        <li>各事件</li>
-                                        <li>各事件</li>
-                                        <li>各事件</li>
+                                        {todolists}
                                     </ul>
                                 </div>
                             </li>
@@ -37,22 +46,10 @@ class Todo extends React.Component {
                                 <span>已办</span>
                                 <div className="lists">
                                     <ul>
-                                        <li>各事件</li>
-                                        <li>各事件</li>
-                                        <li>各事件</li>
+                                        {finishlists}
                                     </ul>
                                 </div>
                             </li>
-                            {/* <li>
-                                <span>代办</span>
-                                <div className="lists">
-                                    <ul>
-                                        <li>各事件</li>
-                                        <li>各事件</li>
-                                        <li>各事件</li>
-                                    </ul>
-                                </div>
-                            </li> */}
                         </ul>
                     </div>
 
