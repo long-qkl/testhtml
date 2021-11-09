@@ -2,6 +2,7 @@
 import React from 'react';
 import './CSS/Todo.min.css';
 import bgimg from './images/122.jpg';
+import Lists from './Lists';
 
 class Todo extends React.Component {
     constructor(props){
@@ -14,19 +15,8 @@ class Todo extends React.Component {
     }
     
     render(){
-        const todolists=this.state.lists.map((list,index)=>{
-            return <li key={index}>{list}</li>
-        });
-        console.log(this.state.finishList);
-        const finishList=this.state.finishList;
-        const finishlists=finishList.map((list,index)=>{
-            // return <li key={index}>{list}</li>
-            if(this.state.finishList){
-                return <li key={index}>{list}</li>
-            }else{
-                return <li>nothing</li>
-            }
-        })
+        // console.log(this.state.lists,"123221")
+        // console.log(this.state.finishList,"123222")
         return(
             <div className="bbg">
                 <img src={bgimg} alt="图片接受失败"></img>
@@ -36,19 +26,11 @@ class Todo extends React.Component {
                         <ul>
                             <li>
                                 <span>待办</span>
-                                <div className="lists">
-                                    <ul>
-                                        {todolists}
-                                    </ul>
-                                </div>
+                                <Lists lists={this.state.lists}></Lists>
                             </li>
                             <li>
                                 <span>已办</span>
-                                <div className="lists">
-                                    <ul>
-                                        {finishlists}
-                                    </ul>
-                                </div>
+                                <Lists lists={this.state.finishList}></Lists>
                             </li>
                         </ul>
                     </div>

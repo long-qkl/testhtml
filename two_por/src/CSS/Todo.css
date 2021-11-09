@@ -44,15 +44,3 @@
 .bbg .sub div > ul li span {
   background: blue;
 }
-
-.bbg .sub div > ul li .lists ul {
-  flex-wrap: wrap;
-}
-
-.bbg .sub div > ul li .lists ul li {
-  width: 100%;
-  height: 28px;
-  line-height: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
