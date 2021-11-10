@@ -6,9 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Todo from './Todo';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Todo />
-  </React.StrictMode>,
+  <Todo />,
   document.getElementById('root')
 );
 
