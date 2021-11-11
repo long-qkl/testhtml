@@ -29,7 +29,7 @@
 }
 
 .bbg .sub > span {
-  background: red;
+  margin-top: 3px;
 }
 
 .bbg .sub div > ul {
@@ -39,8 +39,4 @@
 
 .bbg .sub div > ul li {
   width: 50%;
-}
-
-.bbg .sub div > ul li span {
-  background: blue;
 }

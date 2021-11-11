@@ -10,10 +10,13 @@ class Todo extends React.Component {
         super(props)
         this.state={
             lists:['12','32','fr'],
-            finishList:[],
-            inputVal:''
+            finishList:[12,3],
+            inputVal:'',
+
         }
         this.onput=this.onput.bind(this)
+        this.onsub=this.onsub.bind(this)
+        this.getcl=this.getcl.bind(this)
     }
     // 组件Input中的input框调用的方法
     onput(e){
@@ -23,13 +26,23 @@ class Todo extends React.Component {
     }
     // 组件Input中的button框调用的方法
     onsub(e){
-        console.log("点击了提交")
         //添加输入的数据到开头
         // lists.unshift()
-        // this.setState({
-        //     lists: this.state.lists.unshift(this.state.inputVal)
-        // })
+        if(this.state.inputVal){
+            this.setState({
+                lists: [this.state.inputVal,...this.state.lists],
+                inputVal:''
+            })
+        }else{
+            console.log("输入为空哦！")
+        }
         e.preventDefault();//阻止默认事件
+    }
+
+    //点击列表中的待办事件
+    //得搞定父子组件传参，函数式父子组件传参
+    getcl(){
+        console.log("点击了列表中的待办事件")
     }
     
     render(){
@@ -43,7 +56,7 @@ class Todo extends React.Component {
                         <ul>
                             <li>
                                 <span>待办</span>
-                                <Lists lists={this.state.lists}></Lists>
+                                <Lists lists={this.state.lists} getcl={this.getcl}></Lists>
                             </li>
                             <li>
                                 <span>已办</span>

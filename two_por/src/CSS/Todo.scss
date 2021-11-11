@@ -26,7 +26,8 @@
             line-height: 30px;
         }
         &>span{
-            background: red;
+            // background: red;
+            margin-top: 3px;
         }
         div{
             > ul{
@@ -37,7 +38,7 @@
                     // border-right: 1px solid black;
 
                     span{
-                        background: blue;
+                        // background: blue;
                     }
                 }
             }
