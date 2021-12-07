@@ -21,6 +21,7 @@ class Lists extends React.Component{
                         <h3 onClick={getcl} idx={index}>{name}</h3>
                     </li>)
         }) : <li>nothing</li>
+        
         return(
             <div id="lists">
                 <ul>
