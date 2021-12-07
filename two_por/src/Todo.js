@@ -3,7 +3,7 @@ import React from 'react';
 import './CSS/Todo.min.css';
 import bgimg from './images/122.jpg';
 import Input from './Input';
-import Lists from './Lists';
+import Lists from './Lists copy';
 
 class Todo extends React.Component {
     constructor(props){
@@ -16,7 +16,9 @@ class Todo extends React.Component {
         }
         this.onput=this.onput.bind(this)
         this.onsub=this.onsub.bind(this)
-        this.getcl=this.getcl.bind(this)
+        this.mvcl=this.mvcl.bind(this)
+        this.rmcl=this.rmcl.bind(this)
+        this.inputKeyup=this.inputKeyup.bind(this)
     }
     // 组件Input中的input框调用的方法
     onput(e){
@@ -41,8 +43,38 @@ class Todo extends React.Component {
 
     //点击列表中的待办事件
     //得搞定父子组件传参，函数式父子组件传参
-    getcl(){
-        console.log("点击了列表中的待办事件")
+    //父传子
+    mvcl(e){
+        // console.log(e.target.attributes.idx.value,"mvcl")
+        let idx=e.target.attributes.idx.value
+        let data=this.state.lists.splice(idx,1)
+
+        this.setState({
+            lists: this.state.lists.filter((item)=>{
+                return item !== data
+            }),
+            finishList: [data,...this.state.finishList]
+        })
+        
+
+    }
+    rmcl(e){
+        // console.log("点击了列表中的删除事件，彻底删除掉")
+        // console.log(index,"rmcl")
+        let idx=e.target.attributes.idx.value
+        let data=this.state.finishList.splice(idx,1)
+        this.setState({
+            finishList: this.state.finishList.filter((item)=>{
+                return item !== data
+            })
+        })
+    }
+
+    //input回车事件
+    inputKeyup(e){
+        if(e.keyCode===13){
+            this.onsub(e)
+        }
     }
     
     render(){
@@ -50,17 +82,17 @@ class Todo extends React.Component {
             <div className="bbg">
                 <img src={bgimg} alt="图片接收失败"></img>
                 <div className="sub">
-                    <Input onsub={this.onsub} onput={this.onput} inputVal={this.state.inputVal} />
+                    <Input onsub={this.onsub} onput={this.onput} inputVal={this.state.inputVal} inputKeyup={this.inputKeyup} />
                     <span>任务列表</span>
                     <div>
                         <ul>
                             <li>
                                 <span>待办</span>
-                                <Lists lists={this.state.lists} getcl={this.getcl}></Lists>
+                                <Lists lists={this.state.lists} getcl={this.mvcl} name="完成"></Lists>
                             </li>
                             <li>
                                 <span>已办</span>
-                                <Lists lists={this.state.finishList}></Lists>
+                                <Lists lists={this.state.finishList} getcl={this.rmcl} name="删除"></Lists>
                             </li>
                         </ul>
                     </div>
