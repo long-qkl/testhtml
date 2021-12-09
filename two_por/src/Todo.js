@@ -3,7 +3,7 @@ import React from 'react';
 import './CSS/Todo.min.css';
 import bgimg from './images/122.jpg';
 import Input from './Input';
-import Lists from './Lists copy';
+import Lists from './Lists';
 
 class Todo extends React.Component {
     constructor(props){
@@ -14,20 +14,26 @@ class Todo extends React.Component {
             inputVal:'',
 
         }
-        this.onput=this.onput.bind(this)
-        this.onsub=this.onsub.bind(this)
-        this.mvcl=this.mvcl.bind(this)
-        this.rmcl=this.rmcl.bind(this)
-        this.inputKeyup=this.inputKeyup.bind(this)
+        // this.onput=this.onput.bind(this)
+        // this.onsub=this.onsub.bind(this)
+        // this.mvcl=this.mvcl.bind(this)
+        // this.rmcl=this.rmcl.bind(this)
+        // this.inputKeyup=this.inputKeyup.bind(this)
     }
     // 组件Input中的input框调用的方法
-    onput(e){
+    // onput(e){
+    //     this.setState({
+    //         inputVal: e.target.value
+    //     })
+    // }
+    onput=(e)=>{
         this.setState({
             inputVal: e.target.value
         })
     }
+
     // 组件Input中的button框调用的方法
-    onsub(e){
+    onsub=(e)=>{
         //添加输入的数据到开头
         // lists.unshift()
         if(this.state.inputVal){
@@ -44,25 +50,24 @@ class Todo extends React.Component {
     //点击列表中的待办事件
     //得搞定父子组件传参，函数式父子组件传参
     //父传子
-    mvcl(e){
+    mvcl=(index)=>{
         // console.log(e.target.attributes.idx.value,"mvcl")
-        let idx=e.target.attributes.idx.value
-        let data=this.state.lists.splice(idx,1)
+        // let idx=e.target.attributes.idx.value
+        console.log(index)
+        let data=this.state.lists.splice(index,1)
 
         this.setState({
             lists: this.state.lists.filter((item)=>{
                 return item !== data
             }),
             finishList: [data,...this.state.finishList]
-        })
-        
-
+        })  
     }
-    rmcl(e){
+    rmcl=(index)=>{
         // console.log("点击了列表中的删除事件，彻底删除掉")
         // console.log(index,"rmcl")
-        let idx=e.target.attributes.idx.value
-        let data=this.state.finishList.splice(idx,1)
+        // let idx=e.target.attributes.idx.value
+        let data=this.state.finishList.splice(index,1)
         this.setState({
             finishList: this.state.finishList.filter((item)=>{
                 return item !== data
@@ -71,7 +76,7 @@ class Todo extends React.Component {
     }
 
     //input回车事件
-    inputKeyup(e){
+    inputKeyup=(e)=>{
         if(e.keyCode===13){
             this.onsub(e)
         }

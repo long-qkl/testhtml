@@ -1,5 +1,6 @@
 import './CSS/Lists.min.css'
 
+//
 function Lists(props) {
     let lists=props.lists;
     let getcl=props.getcl;
@@ -11,7 +12,8 @@ function Lists(props) {
         // return (<li key={index} onClick={oncl} >{list}</li>)
         return (<li key={index} >
             <h3>{list}</h3>
-            <h3 onClick={getcl}>{name}</h3>
+            {/* 写个箭头函数把传下来的函数调用并传入参数 */}
+            <h3 onClick={()=>{getcl(index)}}>{name}</h3>
         </li>)
     }) : <li>nothing</li>
     return(
