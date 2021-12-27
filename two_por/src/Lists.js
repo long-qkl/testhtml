@@ -5,7 +5,7 @@ function Lists(props) {
     let lists=props.lists;
     let getcl=props.getcl;
     let name=props.name;
-    console.log(name,"按钮")
+    // console.log(name,"按钮")
     //遍历
     const lis=lists.length ? lists.map((list,index)=>{
         // return <li key={index}><span>{list}</span><button>完成</button></li>

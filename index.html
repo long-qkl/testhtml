@@ -14,11 +14,18 @@
 <body>
     <h1>首页</h1>
     <!-- <a href=""></a> -->
-    <img src="https://scpic.chinaz.net/files/pic/pic9/202009/apic27858.jpg">
-    <img src="https://scpic.chinaz.net/files/pic/pic9/202009/apic27858.jpg">
-    <img src="https://scpic.chinaz.net/files/pic/pic9/202009/apic27858.jpg">
-    <img src="https://scpic.chinaz.net/files/pic/pic9/202009/apic27858.jpg">
+    <img src="https://scpic.chinaz.net/files/pic/pic9/202009/apic27858.jpg" alt="百度一下" title="百度一下">
+    <img src="https://scpic.chinaz.net/files/pic/pic9/202009/apic27858.jpg" alt="百度一下" title="百度一下">
+    <img src="https://scpic.chinaz.net/files/pic/pic9/202009/apic27858.jpg" alt="百度一下" title="百度一下">
+    <img src="https://scpic.chinaz.net/files/pic/pic9/202009/apic27858.jpg" alt="百度一下" title="百度一下">
+    <img
+        src="https://pic2.zhimg.com/80/v2-e7336dc460a15ecbb4aa79b1f73c0921_720w.jpg"
+        alt="移动的汤姆猫"
+        title="移动的汤姆猫"
+        onclick="cat()"
+    >
     <a href="https://long-qkl.github.io/testhtml/first_por">移动的汤姆猫</a>
+    <a href="https://long-qkl.github.io/testhtml/two_por/build/index.html">这是todolist</a>
 </body>
 <script>
     var imgs=document.querySelectorAll("img");
@@ -35,6 +42,11 @@
         // console.log(1111)
         window.location.href="https://www.baidu.com"
     })
+    
+    function cat() {
+        console.log("123")
+        window.open("https://long-qkl.github.io/testhtml/first_por")
+    }
 
     for(var i=0;i<=10;i++){
         console.log(i)
