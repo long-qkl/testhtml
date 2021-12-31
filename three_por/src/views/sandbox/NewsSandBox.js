@@ -7,11 +7,14 @@ import NoPermission from './nopermission/NoPermission'
 import RightList from './right-manage/RightList'
 import RoleList from './right-manage/RoleList'
 import UserList from './user-manage/UserList'
+import { Layout } from 'antd';
+
+
 
 export default function NewsSandBox() {
     return (
-        <div>
-            {/* 侧边栏 */}
+        <Layout>
+            {/* 侧边栏(左) */}
             <SideMenu></SideMenu>
             {/* 内容头部 */}
             <TopHeader></TopHeader>
@@ -26,6 +29,6 @@ export default function NewsSandBox() {
                 <Route path="/" element={<Navigate to="/home" />} />
                 <Route path="*" element={<NoPermission />} />
             </Routes>
-        </div>
+        </Layout>
     )
 }
