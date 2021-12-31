@@ -11,8 +11,14 @@ export default function IndexRouter() {
                 <Route path="/login" element={<Login />} />
                 {/* V6版本router的重定向已经从Redirect更改成Navigate了 */}
                 <Route 
-                    path="/*" 
-                    element={ localStorage.getItem("token") ? <NewsSandBox /> : <Navigate to="/login" /> } 
+                    path="/*" //这里需要加上"*",否则匹配不到子路由
+                    element={ 
+                        localStorage.getItem("token") 
+                        ? 
+                        <NewsSandBox /> 
+                        : 
+                        <Navigate to="/login" /> 
+                    } 
                 />
             </Routes>
         </HashRouter>

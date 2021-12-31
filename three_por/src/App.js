@@ -1,6 +1,6 @@
 import './CSS/App.min.css';
-import axios from 'axios';
-import { useEffect } from 'react';
+// import axios from 'axios';
+// import { useEffect } from 'react';
 import IndexRouter from './router/IndexRouter';
 
 function App() {
