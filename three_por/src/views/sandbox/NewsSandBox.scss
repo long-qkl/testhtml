@@ -20,3 +20,11 @@
 .site-layout .site-layout-background {
     background: #fff;
 }
+
+#root{
+    .App{
+        .ant-layout{
+            height: 100vh;
+        }
+    }
+}
