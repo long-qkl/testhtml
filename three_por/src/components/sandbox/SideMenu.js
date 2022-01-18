@@ -54,6 +54,7 @@ function SideMenu() {
   const RenderMenu=(menuList)=>{
     // withRouter在V6版本已经被usenavigated替换
     const navigate=useNavigate();
+    // const params=useParams();
     return menuList.map((item)=>{
       if (item.children) {
         return <SubMenu key={item.key} icon={item.icon} title={item.title}>
@@ -62,6 +63,7 @@ function SideMenu() {
         </SubMenu>
       }
       return <Menu.Item key={item.key} icon={item.icon} onClick={()=>{
+        // console.log(`params`, params)
         navigate(item.key)
       }}>{item.title}</Menu.Item>
     })
