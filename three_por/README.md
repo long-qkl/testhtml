@@ -24,3 +24,5 @@ module.exports = function(app) {
 # json-server
 模拟接口
 `npm install -g json-server`
+## 接口启动命令
+`json-server --watch ./test.json --port 8000`
