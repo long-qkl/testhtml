@@ -29,13 +29,13 @@ export default function Home() {
         // axios.delete("http://localhost:8000/posts/1")
 
         //关联另外的字段 _embed (向下)
-        // axios.get("http://localhost:8000/posts?_embed=comments").then(res=>{
-        //     console.log("res",res.data);
-        // })
-        //关联另外的字段 _expand (向下)
-        axios.get("http://localhost:8000/comments?_expand=post").then(res=>{
+        axios.get("http://localhost:8000/rights").then(res=>{
             console.log("res",res.data);
-        })        
+        })
+        //关联另外的字段 _expand (向下)
+        // axios.get("http://localhost:8000/comments?_expand=post").then(res=>{
+        //     console.log("res",res.data);
+        // })        
     }
     return (
         <div>

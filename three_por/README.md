@@ -26,3 +26,4 @@ module.exports = function(app) {
 `npm install -g json-server`
 ## 接口启动命令
 `json-server --watch ./test.json --port 8000`
+增删改查等操作可去 `home.js` 里面看

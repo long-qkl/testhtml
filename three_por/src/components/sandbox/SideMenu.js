@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout,Menu } from 'antd';
 import './SideMenu.min.css';
 import {useNavigate} from 'react-router-dom';
@@ -8,6 +8,7 @@ import {
     UploadOutlined,
   } from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
+import axios from 'axios';
 
 const { Sider } = Layout;
 
@@ -49,7 +50,16 @@ const menuList=[
   },
 ]
 
-function SideMenu() {
+export default function SideMenu() {
+
+  const [menus,setMenus]=useState([])
+
+  useEffect(()=>{
+    axios.get("http://localhost:8000/rights?_embed=children").then(res=>{
+      console.log(res.data)
+      setMenus(res.data)
+    })
+  },[])
 
   const RenderMenu=(menuList)=>{
     // withRouter在V6版本已经被usenavigated替换
@@ -69,14 +79,13 @@ function SideMenu() {
     })
   }
 
-    return (
-      // collapsed={this.state.collapsed}
-        <Sider trigger={null} collapsible>
-          <div className="logo">新闻发布管理系统</div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            {RenderMenu(menuList)}
-          </Menu>
-        </Sider>
-    )
+  return (
+    // collapsed={this.state.collapsed}
+      <Sider trigger={null} collapsible>
+        <div className="logo">新闻发布管理系统</div>
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          {RenderMenu(menus)}
+        </Menu>
+      </Sider>
+  )
 }
-export default SideMenu
