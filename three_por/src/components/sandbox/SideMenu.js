@@ -65,9 +65,9 @@ export default function SideMenu() {
     })
   }, [])
 
+  // withRouter在V6版本已经被usenavigated替换
+  const navigate = useNavigate();
   const RenderMenu = (menuList) => {
-    // withRouter在V6版本已经被usenavigated替换
-    const navigate = useNavigate();
     // const params=useParams();
     return menuList.map(item => {
       if (item.children) {
@@ -94,7 +94,7 @@ export default function SideMenu() {
     <Sider trigger={null} collapsible>
       <div className="logo">新闻发布管理系统</div>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-        {RenderMenu(menuList)}
+        {RenderMenu(menus)}
       </Menu>
     </Sider>
   )
