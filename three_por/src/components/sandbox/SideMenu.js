@@ -57,11 +57,11 @@ const { Sider } = Layout;
 
 const iconList = {
   '/home': <UserOutlined />,
-  '/user-manage': <UserOutlined />,
-  '/user-manage/list': <UserOutlined />,
-  '/user-manage': <UserOutlined />,
-  '/right-manage/role/list': <UserOutlined />,
-  '/right-manage/right/list': <UserOutlined />,
+  '/user-manage': <VideoCameraOutlined />,
+  '/user-manage/list': <UploadOutlined />,
+  '/right-manage': <VideoCameraOutlined />,
+  '/right-manage/role/list': <UploadOutlined />,
+  '/right-manage/right/list': <UploadOutlined />,
 }
 
 export default function SideMenu() {
@@ -80,7 +80,7 @@ export default function SideMenu() {
 
   //权限控制
   const checkPagePermission = (item) => {
-    return item.pagepermisson === 1
+    return item.pagepermisson
     // return item.pagepermisson === 1
   }
   //刷新后默认的选择列表
