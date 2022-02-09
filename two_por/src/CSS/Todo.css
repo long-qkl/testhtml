@@ -10,6 +10,7 @@
 }
 
 .bbg .sub {
+  opacity: .9;
   width: 70vw;
   height: 50vh;
   background: #eeeeee;
