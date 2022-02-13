@@ -6,7 +6,7 @@
     position: absolute;
 }
 ::-webkit-scrollbar-thumb{
-    background-color: rgb(0, 195, 255);
+    background-color: rgb(158, 158, 158);
     border-radius: 10px;
 }
 ::-webkit-scrollbar-track{
