@@ -92,7 +92,7 @@ export default function SideMenu() {
     // const params=useParams();
     
     return menuList.map(item => {
-
+      console.log(item);
       if (item.children?.length > 0 && checkPagePermission(item)) {
         // const children = item.children.map((item) => {
         //   return <Menu.Item key={item.key} icon={item.icon} onClick={() => {
