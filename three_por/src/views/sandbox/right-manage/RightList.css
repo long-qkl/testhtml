@@ -1,3 +1,7 @@
-.ant-table-container {
-  min-height: 75vh;
+.managelist .ant-table-container {
+  min-height: 70vh;
+}
+
+.managelist .ant-table-body {
+  max-height: 60vh !important;
 }

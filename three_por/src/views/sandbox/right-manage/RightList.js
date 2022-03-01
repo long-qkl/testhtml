@@ -66,7 +66,7 @@ export default function RightList() {
 
 
     return (
-        <div>
+        <div className='managelist'>
             <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
         </div>
     )
