@@ -84,13 +84,13 @@ export default function SideMenu() {
     // return item.pagepermisson === 1
   }
   //刷新后默认的选择列表
-  const locationUrl=useLocation();
-  const openKeys=["/"+locationUrl.pathname.split("/")[1]]
+  const locationUrl = useLocation();
+  const openKeys = ["/" + locationUrl.pathname.split("/")[1]]
   // console.log('location', locationUrl.pathname);
 
   const RenderMenu = (menuList) => {
     // const params=useParams();
-    
+
     return menuList.map(item => {
       console.log(item);
       if (item.children?.length > 0 && checkPagePermission(item)) {
@@ -115,9 +115,9 @@ export default function SideMenu() {
   return (
     // collapsed={this.state.collapsed}
     <Sider trigger={null} collapsible>
-      <div style={{display:"flex",height:"100%",flexDirection:"column"}}>
+      <div style={{ display: "flex", height: "100%", flexDirection: "column"}}>
         <div className="logo">新闻发布管理系统</div>
-        <div style={{flex:1,overflow:"auto"}}>
+        <div style={{ flex: 1, overflow: "auto" }}>
           <Menu theme="dark" mode="inline" selectedKeys={locationUrl.pathname} defaultOpenKeys={openKeys}>
             {RenderMenu(menus)}
           </Menu>
