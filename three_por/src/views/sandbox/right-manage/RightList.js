@@ -1,7 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 // import { useLocation } from 'react-router-dom'
-import { Button, Table, Tag, Modal } from 'antd';
+import {
+    Button,
+    Table,
+    Tag,
+    Modal,
+    Switch,
+    Popover
+} from 'antd';
 import {
     DeleteOutlined,
     EditOutlined,
@@ -79,7 +86,6 @@ export default function RightList() {
 
     }
 
-
     const columns = [
         {
             title: 'ID',
@@ -103,10 +109,26 @@ export default function RightList() {
             title: '操作',
             render: (item) => {
                 return <>
-                    <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => {
-                        showDeleteConfirm(item)
-                    }} />
-                    <Button type="primary" shape="circle" icon={<DeleteOutlined />} danger onClick={() => {
+                    <Popover
+                        content={
+                            <div style={{ textAlign: 'center' }}>
+                                <Switch
+                                    checked={item.pagepermisson}
+                                    checkedChildren="开启"
+                                    unCheckedChildren="关闭"
+                                    onChange={()=>{
+                                        changeSwitchMoth();
+                                    }}
+                                />
+                            </div>
+                        }
+                        title="页面配置项"
+                        trigger={item.pagepermisson == null ? '' : "click"}
+                    >
+                        <Button type="primary" shape="circle" icon={<EditOutlined />} disabled={item.pagepermisson == null} />
+                    </Popover>
+
+                    <Button style={{ marginLeft: '5px' }} type="primary" shape="circle" icon={<DeleteOutlined />} danger onClick={() => {
                         showDeleteConfirm(item)
                     }} />
                 </>
