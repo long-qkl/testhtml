@@ -94,11 +94,7 @@ export default function SideMenu() {
     return menuList.map(item => {
       // console.log(item);
       if (item.children?.length > 0 && checkPagePermission(item)) {
-        // const children = item.children.map((item) => {
-        //   return <Menu.Item key={item.key} icon={item.icon} onClick={() => {
-        //     navigate(item.key)
-        //   }}>{item.title}</Menu.Item>
-        // })
+
         return <SubMenu key={item.key} icon={iconList[item.key]} title={item.title}>
           {/* 递归 */}
           {RenderMenu(item.children)}
@@ -106,7 +102,6 @@ export default function SideMenu() {
         </SubMenu>
       }
       return checkPagePermission(item) && <Menu.Item key={item.key} icon={iconList[item.key]} onClick={() => {
-        // console.log(`params`, params)
         navigate(item.key)
       }}>{item.title}</Menu.Item>
     })

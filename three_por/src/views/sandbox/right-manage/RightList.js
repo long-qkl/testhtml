@@ -1,13 +1,16 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 // import { useLocation } from 'react-router-dom'
-import { Button, Table, Tag } from 'antd';
-import { 
+import { Button, Table, Tag, Modal } from 'antd';
+import {
     DeleteOutlined,
-    EditOutlined
+    EditOutlined,
+    ExclamationCircleOutlined
 } from '@ant-design/icons';
 
 import './RightList.min.css'
+
+const { confirm } = Modal
 
 export default function RightList() {
     // const locationUrl=useLocation();
@@ -22,14 +25,58 @@ export default function RightList() {
     //     console.log('RightList进来了');
     // },[])
     const [dataSource, setdataSource] = useState([])
+    const [showTable, setshowTable] = useState('')
     useEffect(() => {
+        setshowTable(true)
         axios.get("http://localhost:8000/rights?_embed=children").then(res => {
-            setdataSource(res.data);
+            let lists = res.data
+            lists.map(item => {
+                if (item.children.length == 0) {
+                    item.children = ''
+                }
+            })
+            setdataSource(lists);
+        }).then(() => {
+            setshowTable(false)
         })
     }, [])
 
-    const dianji=()=>{
-        console.log('first')
+    const showDeleteConfirm = (item) => {
+        confirm({
+            title: '是否删除当前权限',
+            icon: <ExclamationCircleOutlined />,
+            // content: '描述',
+            okText: '确认删除',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk() {
+                deleteMethod(item)
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    }
+    //删除函数
+    const deleteMethod = (item) => {
+        console.log('item', item)
+        //页面需要同步+请求后端接口进行删除
+        //进行层级判断，若有多级，则需要进行多次判断
+        if (item.grade == 1) {
+            setdataSource(dataSource.filter(data => {
+                return data.id != item.id
+            }))
+            axios.delete(`http://localhost:8000/rights/${item.id}`)
+        } else if (item.grade == 2) {
+            //2级接口
+            let list = dataSource.filter(data => data.id == item.rightId)
+            list[0].children = list[0].children.filter((data) => {
+                return data.id != item.id
+            })
+            setdataSource([...dataSource])
+            axios.delete(`http://localhost:8000/children/${item.id}`)
+        }
+
     }
 
 
@@ -54,11 +101,14 @@ export default function RightList() {
         },
         {
             title: '操作',
-            key: 'key',
-            render: () => {
+            render: (item) => {
                 return <>
-                    <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={dianji} />
-                    <Button type="primary" shape="circle" icon={<DeleteOutlined />} danger onClick={dianji} />
+                    <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => {
+                        showDeleteConfirm(item)
+                    }} />
+                    <Button type="primary" shape="circle" icon={<DeleteOutlined />} danger onClick={() => {
+                        showDeleteConfirm(item)
+                    }} />
                 </>
             }
         },
@@ -67,7 +117,10 @@ export default function RightList() {
 
     return (
         <div className='managelist'>
-            <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
+            <Table dataSource={dataSource} columns={columns} loading={showTable} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} pagination={{
+                pageSize: 5,
+                simple: true
+            }} />
         </div>
     )
 }
