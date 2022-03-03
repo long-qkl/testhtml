@@ -16,13 +16,13 @@ export default function Home() {
         // })
 
         //改 put (替换)
-        // axios.put("http://localhost:8000/posts/5",{
+        // axios.put("http://localhost:8000/news/1",{
         //     author:"不是我啊修改"
         // })
 
-        //改 patch (替换)
-        // axios.patch("http://localhost:8000/posts/6",{
-        //     author:"不是我啊修改---1"
+        // 改 patch (替换)
+        // axios.patch("http://localhost:8000/news/1",{
+        //     content:"不是我啊修改---1"
         // })
 
         //删除 delete

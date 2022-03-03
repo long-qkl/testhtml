@@ -86,6 +86,30 @@ export default function RightList() {
 
     }
 
+    const changeSwitchMoth=(item)=>{
+        // //请求更改pagepermisson字段
+        // console.log("135",item);
+        // // axios.patch("")
+        // if (item.grade == 1) {
+        //     setdataSource(dataSource.filter(data => {
+        //         return data.id != item.id
+        //     }))
+        //     axios.patch(`http://localhost:8000/rights/${item.id}`,{
+        //         pagepermisson: !item.pagepermisson
+        //     })
+        // } else if (item.grade == 2) {
+        //     //2级接口
+        //     let list = dataSource.filter(data => data.id == item.rightId)
+        //     list[0].children = list[0].children.filter((data) => {
+        //         return data.id != item.id
+        //     })
+        //     setdataSource([...dataSource])
+        //     axios.patch(`http://localhost:8000/children/${item.id}`,{
+        //         pagepermisson: !item.pagepermisson
+        //     })
+        // }
+    }
+
     const columns = [
         {
             title: 'ID',
@@ -117,7 +141,7 @@ export default function RightList() {
                                     checkedChildren="开启"
                                     unCheckedChildren="关闭"
                                     onChange={()=>{
-                                        changeSwitchMoth();
+                                        changeSwitchMoth(item);
                                     }}
                                 />
                             </div>
