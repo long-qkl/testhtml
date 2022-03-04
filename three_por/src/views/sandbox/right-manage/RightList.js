@@ -85,29 +85,23 @@ export default function RightList() {
         }
 
     }
-
-    const changeSwitchMoth=(item)=>{
+    //更改pagepermisson字段，达成暂时屏蔽该路径
+    const changeSwitchMethod = (item) => {
         // //请求更改pagepermisson字段
-        // console.log("135",item);
-        // // axios.patch("")
-        // if (item.grade == 1) {
-        //     setdataSource(dataSource.filter(data => {
-        //         return data.id != item.id
-        //     }))
-        //     axios.patch(`http://localhost:8000/rights/${item.id}`,{
-        //         pagepermisson: !item.pagepermisson
-        //     })
-        // } else if (item.grade == 2) {
-        //     //2级接口
-        //     let list = dataSource.filter(data => data.id == item.rightId)
-        //     list[0].children = list[0].children.filter((data) => {
-        //         return data.id != item.id
-        //     })
-        //     setdataSource([...dataSource])
-        //     axios.patch(`http://localhost:8000/children/${item.id}`,{
-        //         pagepermisson: !item.pagepermisson
-        //     })
-        // }
+        item.pagepermisson = item.pagepermisson == 1 ? 0 : 1
+        setdataSource([...dataSource])
+
+        if (item.grade == 1) {
+            axios.patch(`http://localhost:8000/rights/${item.id}`, {
+                pagepermisson: item.pagepermisson
+            })
+
+        } else if (item.grade == 2) {
+            axios.patch(`http://localhost:8000/children/${item.id}`, {
+                pagepermisson: item.pagepermisson
+            })
+        }
+
     }
 
     const columns = [
@@ -140,8 +134,8 @@ export default function RightList() {
                                     checked={item.pagepermisson}
                                     checkedChildren="开启"
                                     unCheckedChildren="关闭"
-                                    onChange={()=>{
-                                        changeSwitchMoth(item);
+                                    onChange={() => {
+                                        changeSwitchMethod(item);
                                     }}
                                 />
                             </div>
@@ -163,7 +157,7 @@ export default function RightList() {
 
     return (
         <div className='managelist'>
-            <Table dataSource={dataSource} columns={columns} loading={showTable} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} pagination={{
+            <Table dataSource={dataSource} columns={columns} loading={showTable} scroll={{ y: 600 }} pagination={{
                 pageSize: 5,
                 simple: true
             }} />
