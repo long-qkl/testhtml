@@ -109,6 +109,9 @@ export default function RightList() {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
+            render: (id)=>{
+                return <b>{id}</b>
+            }
         },
         {
             title: '权限名称',
@@ -157,10 +160,15 @@ export default function RightList() {
 
     return (
         <div className='managelist'>
-            <Table dataSource={dataSource} columns={columns} loading={showTable} scroll={{ y: 600 }} pagination={{
-                pageSize: 5,
-                simple: true
-            }} />
+            <Table
+                dataSource={dataSource}
+                columns={columns}
+                loading={showTable}
+                scroll={{ y: 600 }}
+                pagination={{
+                    pageSize: 5,
+                    simple: true
+                }} />
         </div>
     )
 }
