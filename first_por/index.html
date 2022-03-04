@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>css</title>
+    <title>A Move Cat</title>
 </head>
 <style>
-    *{
+    * {
         padding: 0;
         margin: 0;
     }
-    .one{
+
+    .one {
         width: 500px;
         height: 500px;
         background-color: red;
@@ -19,7 +21,8 @@
         margin-top: 200px;
         position: relative;
     }
-    .pic{
+
+    .pic {
         width: 50px;
         height: 50px;
         position: absolute;
@@ -28,22 +31,63 @@
         pointer-events: none;
     }
 </style>
+
 <body>
     <div class="one">
         <img class="pic" src="https://pic2.zhimg.com/80/v2-e7336dc460a15ecbb4aa79b1f73c0921_720w.jpg" alt="">
     </div>
 </body>
 <script>
-    var classname=document.querySelector(".one");
-    var pic=document.querySelector(".pic");
-    console.log(classname,"=========",pic)
+    var classname = document.querySelector(".one");
+    var pic = document.querySelector(".pic");
+    console.log(classname, "=========", pic)
 
-    classname.addEventListener('mousemove',(e)=>{
+    classname.addEventListener('mousemove', (e) => {
         console.log(123)
         // pic.style.top=pic.offsettop
         // console.log(e.offsetX,"===",e.offsetY)
-        pic.style.top=e.offsetY-25+"px";
-        pic.style.left=e.offsetX-25+"px";
+        pic.style.top = e.offsetY - 25 + "px";
+        pic.style.left = e.offsetX - 25 + "px";
     })
+
+    //构造函数
+    function Person(name, age, sex, number) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+        this.number = number;
+        this.onFoot = function () {
+            console.log(this.name + '在走路');
+        }
+    }
+    var p1 = new Person('小明', 12, '男', 10000)
+    var p2 = new Person('小蓝', 22, '男', 20000)
+    var p3 = new Person('小橙', 13, '女', 8000)
+    var p4 = new Person('小红', 18, '女', 5000)
+    console.log('p1,p2,p3,p4', p1, p2, p3, p4)
+    var array = [p1, p2, p3, p4]
+    array.forEach(item => {
+        console.log('item', item)
+        console.log('array.length', array.length)
+        item.onFoot()
+    });
+
+    //面向对象
+    console.log('=====================================================');
+    class Father{
+        constructor(name){
+            this.name=name;
+        }
+        sing(){
+            console.log(this.name+'会sing');
+        }
+        song(){
+            console.log(this.name+"不仅会song，还会");
+        }
+    }
+    var f1=new Father("AA");
+    console.log('f1', f1 , f1.sing())
+
 </script>
+
 </html>
