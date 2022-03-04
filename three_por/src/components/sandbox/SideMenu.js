@@ -80,7 +80,7 @@ export default function SideMenu() {
 
   //权限控制
   const checkPagePermission = (item) => {
-    return item.pagepermisson
+    return item.pagepermisson == true
     // return item.pagepermisson === 1
   }
   //刷新后默认的选择列表
@@ -110,7 +110,7 @@ export default function SideMenu() {
   return (
     // collapsed={this.state.collapsed}
     <Sider trigger={null} collapsible>
-      <div style={{ display: "flex", height: "100%", flexDirection: "column"}}>
+      <div style={{ display: "flex", height: "100%", flexDirection: "column" }}>
         <div className="logo">新闻发布管理系统</div>
         <div style={{ flex: 1, overflow: "auto" }}>
           <Menu theme="dark" mode="inline" selectedKeys={locationUrl.pathname} defaultOpenKeys={openKeys}>
