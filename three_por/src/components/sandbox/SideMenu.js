@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from 'react'
 import { Layout, Menu } from 'antd';
 import './SideMenu.min.css';
