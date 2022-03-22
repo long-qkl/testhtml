@@ -16,84 +16,9 @@ export default function RoleList() {
 
     const [showLoading, setShowLoading] = useState('')
     const [dataSource, setDataSource] = useState([])
+    const [currentTights, setCurrentTights] = useState([])
     const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const [expandedKeys, setExpandedKeys] = useState(['0-0-0', '0-0-1']);
-    const [checkedKeys, setCheckedKeys] = useState(['0-0-0']);
-    const [selectedKeys, setSelectedKeys] = useState([]);
-    const [autoExpandParent, setAutoExpandParent] = useState(true);
     const [treeData, setTreeData] = useState([])
-
-    // const treeData = [
-    //     {
-    //       title: '0-0',
-    //       key: '0-0',
-    //       children: [
-    //         {
-    //           title: '0-0-0',
-    //           key: '0-0-0',
-    //           children: [
-    //             {
-    //               title: '0-0-0-0',
-    //               key: '0-0-0-0',
-    //             },
-    //             {
-    //               title: '0-0-0-1',
-    //               key: '0-0-0-1',
-    //             },
-    //             {
-    //               title: '0-0-0-2',
-    //               key: '0-0-0-2',
-    //             },
-    //           ],
-    //         },
-    //         {
-    //           title: '0-0-1',
-    //           key: '0-0-1',
-    //           children: [
-    //             {
-    //               title: '0-0-1-0',
-    //               key: '0-0-1-0',
-    //             },
-    //             {
-    //               title: '0-0-1-1',
-    //               key: '0-0-1-1',
-    //             },
-    //             {
-    //               title: '0-0-1-2',
-    //               key: '0-0-1-2',
-    //             },
-    //           ],
-    //         },
-    //         {
-    //           title: '0-0-2',
-    //           key: '0-0-2',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       title: '0-1',
-    //       key: '0-1',
-    //       children: [
-    //         {
-    //           title: '0-1-0-0',
-    //           key: '0-1-0-0',
-    //         },
-    //         {
-    //           title: '0-1-0-1',
-    //           key: '0-1-0-1',
-    //         },
-    //         {
-    //           title: '0-1-0-2',
-    //           key: '0-1-0-2',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       title: '0-2',
-    //       key: '0-2',
-    //     },
-    //   ];
 
     const showDeleteConfirm = (item) => {
         confirm({
@@ -142,6 +67,7 @@ export default function RoleList() {
                 return <>
                     <Button type="primary" shape="circle" icon={<BarsOutlined />} disabled={item.roleType == 1 ? true : false} onClick={() => {
                         setIsModalVisible(true)
+                        setCurrentTights(item.rights)
                     }} />
                     <Button style={{ marginLeft: '5px' }} type="primary" shape="circle" icon={<DeleteOutlined />} danger disabled={item.roleType == 1 ? true : false} onClick={() => showDeleteConfirm(item)} />
                 </>
@@ -154,7 +80,7 @@ export default function RoleList() {
             console.log('res.data', res.data)
             setDataSource(res.data)
         }).then(() => setShowLoading(false))
-        axios.get('http://localhost:8000/rights?_embed=children').then(res=>{
+        axios.get('http://localhost:8000/rights?_embed=children').then(res => {
             setTreeData(res.data)
         })
     }, [])
@@ -167,22 +93,10 @@ export default function RoleList() {
         setIsModalVisible(false);
     };
 
-    const onCheck = (checkedKeysValue) => {
-        console.log('onCheck', checkedKeysValue);
-        setCheckedKeys(checkedKeysValue);
+    const onCheck = (checkedKeys) => {
+        console.log('checkedKeys', checkedKeys)
+        setCurrentTights(checkedKeys)
     };
-
-    const onSelect = (selectedKeysValue, info) => {
-        console.log('onSelect', info);
-        setSelectedKeys(selectedKeysValue);
-    };
-
-    const onExpand = (expandedKeysValue) => {
-        console.log('onExpand', expandedKeysValue); 
-        setExpandedKeys(expandedKeysValue);
-        setAutoExpandParent(false);
-      };
-
 
     return (
         <>
@@ -200,17 +114,12 @@ export default function RoleList() {
             >
                 <Tree
                     checkable
-                    // onExpand={onExpand}
-                    // expandedKeys={expandedKeys}
-                    // autoExpandParent={autoExpandParent}
-                    // onCheck={onCheck}
-                    // checkedKeys={checkedKeys}
-                    // onSelect={onSelect}
-                    // selectedKeys={selectedKeys}
-                    defaultCheckedKeys={['/home']}
-                    treeData={treeData}
-                    rowKey={(item)=>item.children}
+                    checkedKeys={currentTights}
+                    onCheck={onCheck}
+                    checkStrictly
+                    rowKey={(item) => item.children}
                     height={300}
+                    treeData={treeData}
                 />
             </Modal>
         </>
