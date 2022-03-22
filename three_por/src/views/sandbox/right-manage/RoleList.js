@@ -210,6 +210,7 @@ export default function RoleList() {
                     defaultCheckedKeys={['/home']}
                     treeData={treeData}
                     rowKey={(item)=>item.children}
+                    height={300}
                 />
             </Modal>
         </>
