@@ -28,3 +28,6 @@ module.exports = function(app) {
 `json-server --watch ./db.json --port 8000`
 `json-server --watch ./three_por/src/test/db.json --port 8000`
 增删改查等操作可去 `home.js` 里面看
+
+# 启动项目
+`npm run start`
