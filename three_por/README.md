@@ -18,8 +18,9 @@ module.exports = function(app) {
   );
 };
 ```
-# 路由
+# 路由 
 `npm i react-router-dom --save`
+该版本为react-router V6 的版本
 
 # json-server
 模拟接口
