@@ -16,7 +16,8 @@ export default function RoleList() {
 
     const [showLoading, setShowLoading] = useState('')
     const [dataSource, setDataSource] = useState([])
-    const [currentTights, setCurrentTights] = useState([])
+    const [currentRights, setCurrentRights] = useState([])
+    const [currentId, setCurrentId] = useState(0)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [treeData, setTreeData] = useState([])
 
@@ -67,7 +68,8 @@ export default function RoleList() {
                 return <>
                     <Button type="primary" shape="circle" icon={<BarsOutlined />} disabled={item.roleType == 1 ? true : false} onClick={() => {
                         setIsModalVisible(true)
-                        setCurrentTights(item.rights)
+                        setCurrentRights(item.rights)
+                        setCurrentId(item.id)
                     }} />
                     <Button style={{ marginLeft: '5px' }} type="primary" shape="circle" icon={<DeleteOutlined />} danger disabled={item.roleType == 1 ? true : false} onClick={() => showDeleteConfirm(item)} />
                 </>
@@ -86,6 +88,23 @@ export default function RoleList() {
     }, [])
 
     const handleOk = () => {
+        console.log(currentRights,currentId);
+        //同步datasource
+        setDataSource(dataSource.map(item => {
+            if (item.id === currentId) {
+                return {
+                    ...item,
+                    rights: currentRights
+                }
+            }
+            return item
+        }))
+
+        //同步接口数据
+        axios.patch(`http://localhost:8000/roles/${currentId}`, {
+            rights: currentRights
+        })
+
         setIsModalVisible(false);
     };
 
@@ -95,7 +114,7 @@ export default function RoleList() {
 
     const onCheck = (checkedKeys) => {
         console.log('checkedKeys', checkedKeys)
-        setCurrentTights(checkedKeys)
+        setCurrentRights(checkedKeys.checked)
     };
 
     return (
@@ -114,7 +133,7 @@ export default function RoleList() {
             >
                 <Tree
                     checkable
-                    checkedKeys={currentTights}
+                    checkedKeys={currentRights}
                     onCheck={onCheck}
                     checkStrictly
                     rowKey={(item) => item.children}
