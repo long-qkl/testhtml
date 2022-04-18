@@ -7,7 +7,6 @@ import {
     Table,
     Switch,
     Modal,
-    Select
 } from 'antd';
 import {
     DeleteOutlined,
@@ -91,21 +90,27 @@ export default function UserList() {
         addForm.current.validateFields().then(value => {
             console.log(value)
             setIsAddVisible(false)
-            addForm.current.setFieldsValue({
-                region: '',
-                roleId: '',
-                password: '',
-                username: ''
-            })
+            //提交后清空原数据 ====>addForm.current.resetFields()
+            // addForm.current.setFieldsValue({
+            //     region: '',
+            //     roleId: '',
+            //     password: '',
+            //     username: ''
+            // })
+            addForm.current.resetFields()
             //post到后端，生成id，在设置datasource ,方便后面的删除和更新
 
-            axios.post(`http://localhost:8000/users`,{
+            axios.post(`http://localhost:8000/users`, {
                 ...value,
                 'roleState': true,
-                'default':false
-            }).then(res=>{
-                console.log("查看users请求的数据",res.data)
-                setDataSource([...dataSource,res.data])
+                'default': false
+            }).then(res => {
+                //这里的数据拼接后角色权能不显示，重新请求DataSource
+                console.log("查看users请求的数据", res.data)
+                setDataSource([...dataSource, res.data])
+                axios.get("http://localhost:8000/users?_expand=role").then((res) => {
+                    setDataSource(res.data)
+                })
             })
 
         }).catch(err => {
