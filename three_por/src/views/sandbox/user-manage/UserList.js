@@ -1,18 +1,19 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 // import { useLocation } from 'react-router-dom'
+
 import {
     Button,
     Table,
     Switch,
-    Popover,
-    Modal
+    Modal,
+    Select
 } from 'antd';
 import {
     DeleteOutlined,
-    EditOutlined,
     ExclamationCircleOutlined,
 } from '@ant-design/icons';
+import UserForm from '../../../components/user-manage/UserForm';
 
 const { confirm } = Modal
 
@@ -20,12 +21,24 @@ export default function UserList() {
 
     const [dataSource, setDataSource] = useState([])
     const [showTable, setshowTable] = useState('')
+    const [isAddVisible, setIsAddVisible] = useState(false)
+    const [regionList, setRegionList] = useState([])
+    const [roleList, setRoleList] = useState([])
+    const addForm = useRef(null)
 
     useEffect(() => {
-        // setshowTable(true)
+        setshowTable(true)
         axios.get("http://localhost:8000/users?_expand=role").then((res) => {
             console.log(res.data);
             setDataSource(res.data)
+            setshowTable(false)
+        })
+        axios.get("http://localhost:8000/regions").then((res) => {
+            console.log(res.data);
+            setRegionList(res.data)
+        })
+        axios.get("http://localhost:8000/roles").then((res) => {
+            setRoleList(res.data)
         })
     }, [])
 
@@ -53,24 +66,9 @@ export default function UserList() {
         //进行层级判断，若有多级，则需要进行多次判断
 
         setDataSource(dataSource.filter(data => {
-            return data.id != item.id
+            return data.id !== item.id
         }))
         axios.delete(`http://localhost:8000/users/${item.id}`)
-
-        // if (item.grade == 1) {
-        //     setDataSource(dataSource.filter(data => {
-        //         return data.id != item.id
-        //     }))
-        //     axios.delete(`http://localhost:8000/rights/${item.id}`)
-        // } else if (item.grade == 2) {
-        //     //2级接口
-        //     let list = dataSource.filter(data => data.id == item.rightId)
-        //     list[0].children = list[0].children.filter((data) => {
-        //         return data.id != item.id
-        //     })
-        //     setDataSource([...dataSource])
-        //     axios.delete(`http://localhost:8000/children/${item.id}`)
-        // }
 
     }
 
@@ -87,9 +85,32 @@ export default function UserList() {
         })
     }
 
-    //添加
+    // //添加
     const addUsers = () => {
-        console.log(123);
+        console.log("sldkjf")
+        addForm.current.validateFields().then(value => {
+            console.log(value)
+            setIsAddVisible(false)
+            addForm.current.setFieldsValue({
+                region: '',
+                roleId: '',
+                password: '',
+                username: ''
+            })
+            //post到后端，生成id，在设置datasource ,方便后面的删除和更新
+
+            axios.post(`http://localhost:8000/users`,{
+                ...value,
+                'roleState': true,
+                'default':false
+            }).then(res=>{
+                console.log("查看users请求的数据",res.data)
+                setDataSource([...dataSource,res.data])
+            })
+
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     const columns = [
@@ -97,7 +118,7 @@ export default function UserList() {
             title: '区域',
             dataIndex: 'region',
             render: (region) => {
-                return <b>{region == '' ? '全球' : region}</b>
+                return <b>{region === '' ? '全球' : region}</b>
             }
         },
         {
@@ -160,8 +181,11 @@ export default function UserList() {
                 style={{ marginBottom: 5 }}
                 type="primary"
                 onClick={() => {
-                    addUsers()
-                }} >添加</Button>
+                    setIsAddVisible(true)
+                }}
+            >
+                添加
+            </Button>
             <Table
                 dataSource={dataSource}
                 columns={columns}
@@ -173,6 +197,20 @@ export default function UserList() {
                 }}
                 rowKey={(item) => item.id}
             />
+            <Modal
+                visible={isAddVisible}
+                title="添加用户"
+                okText="确定"
+                cancelText="取消"
+                onCancel={() => {
+                    setIsAddVisible(false)
+                }}
+                onOk={() => {
+                    addUsers()
+                }}
+            >
+                <UserForm regionList={regionList} roleList={roleList} ref={addForm} />
+            </Modal>
         </div>
     )
 }
