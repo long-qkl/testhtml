@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import {
     Form,
     Input,
@@ -13,6 +13,10 @@ const UserForm = forwardRef((props, ref) => {
 
     //控制区域的禁用情况
     const [isDisable, setisDisabled] = useState(false)
+
+    useEffect(()=>{
+        setisDisabled(props.isUpdateDisabled)
+    },[props.isUpdateDisabled])
 
     return (
         <Form layout="vertical" ref={ref} >

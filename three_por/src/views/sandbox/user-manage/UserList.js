@@ -11,6 +11,7 @@ import {
 import {
     DeleteOutlined,
     ExclamationCircleOutlined,
+    EditOutlined,
 } from '@ant-design/icons';
 import UserForm from '../../../components/user-manage/UserForm';
 
@@ -24,6 +25,10 @@ export default function UserList() {
     const [regionList, setRegionList] = useState([])
     const [roleList, setRoleList] = useState([])
     const addForm = useRef(null)
+    const [isUpdateVisible, setisUpdateVisible] = useState(false)
+    const updateForm = useRef(null)
+    const [isUpdateDisabled, setIsUpdateDisabled] = useState(false)
+    const [current, setCurrent] = useState(null)
 
     useEffect(() => {
         setshowTable(true)
@@ -84,6 +89,50 @@ export default function UserList() {
         })
     }
 
+    //显示修改框函数
+    const handleUpdate = (item) => {
+        console.log('sdlkfjlsdf', item)
+        //这里会有====》对话框模块还没显示，也就是表单还没挂载就调用了setFieldsValue，所以报错      解决方法：添加一个延时器即可
+        // setisUpdateVisible(true)
+        // updateForm.current.setFieldsValue(item)
+
+        setTimeout(() => {
+            setisUpdateVisible(true)
+
+            //控制子组件状态更改
+            item.roleId === 1 ? setIsUpdateDisabled(true) : setIsUpdateDisabled(false)
+
+            updateForm.current.setFieldsValue(item)
+        }, 0);
+        setCurrent(item)
+    }
+
+    const handleUpdateOk = () => {
+
+        console.log(updateForm)
+        updateForm.current.validateFields().then(value => {
+            console.log(value)
+            setisUpdateVisible(false)
+            // updateForm.current.resetFields()
+            //patch到后端，生成id，再设置datasource ,方便后面的删除和更新
+
+            //发起请求，修改数据
+            axios.patch(`http://localhost:8000/users/${current.id}`,{
+                ...value,
+            }).then(res=>{
+                console.log('123458',res.data)
+                //再次发起请求，重新获取已经修改的数据
+                axios.get("http://localhost:8000/users?_expand=role").then((res) => {
+                    setDataSource(res.data)
+                })
+            })
+            setIsUpdateDisabled(!isUpdateDisabled)
+
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     // //添加
     const addUsers = () => {
         console.log("sldkjf")
@@ -98,7 +147,7 @@ export default function UserList() {
             //     username: ''
             // })
             addForm.current.resetFields()
-            //post到后端，生成id，在设置datasource ,方便后面的删除和更新
+            //post到后端，生成id，再设置datasource ,方便后面的删除和更新
 
             axios.post(`http://localhost:8000/users`, {
                 ...value,
@@ -122,6 +171,19 @@ export default function UserList() {
         {
             title: '区域',
             dataIndex: 'region',
+            filters: [
+                ...regionList.map(item=>({
+                    text: item.title,
+                    value: item.value
+                })),
+                {
+                    text: "全球",
+                    value: ""
+                }
+            ],
+            onFilter: (value,item)=>{
+                return item.region===value
+            },
             render: (region) => {
                 return <b>{region === '' ? '全球' : region}</b>
             }
@@ -164,6 +226,15 @@ export default function UserList() {
             title: '操作',
             render: (item) => {
                 return <>
+                    <Button
+                        type="primary"
+                        shape="circle"
+                        icon={<EditOutlined />}
+                        disabled={item.default}
+                        onClick={() => {
+                            handleUpdate(item)
+                        }}
+                    />
                     <Button
                         style={{ marginLeft: '5px' }}
                         type="primary"
@@ -215,6 +286,22 @@ export default function UserList() {
                 }}
             >
                 <UserForm regionList={regionList} roleList={roleList} ref={addForm} />
+            </Modal>
+
+            <Modal
+                visible={isUpdateVisible}
+                title="编辑用户"
+                okText="确定修改"
+                cancelText="取消"
+                onCancel={() => {
+                    setisUpdateVisible(false)
+                    setIsUpdateDisabled(!isUpdateDisabled)
+                }}
+                onOk={() => {
+                    handleUpdateOk()
+                }}
+            >
+                <UserForm regionList={regionList} roleList={roleList} ref={updateForm} isUpdateDisabled={isUpdateDisabled} />
             </Modal>
         </div>
     )
