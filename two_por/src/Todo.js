@@ -85,7 +85,7 @@ class Todo extends React.Component {
     render(){
         return(
             <div className="bbg">
-                <img src={bgimg} alt="图片接收失败"></img>
+                {/* <img src={bgimg} alt="图片接收失败"></img> */}
                 <div className="sub">
                     <Input onsub={this.onsub} onput={this.onput} inputVal={this.state.inputVal} inputKeyup={this.inputKeyup} />
                     <span>任务列表</span>
