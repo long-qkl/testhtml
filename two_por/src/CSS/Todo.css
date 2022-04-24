@@ -20,6 +20,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10px;
+  z-index: 100;
 }
 
 .bbg .sub span {
