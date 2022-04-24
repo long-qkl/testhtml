@@ -2,6 +2,7 @@
   width: 100vw;
   height: 100vh;
   position: relative;
+  background-image: url(../images/122.jpg);
 }
 
 .bbg img {
@@ -19,6 +20,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10px;
+  z-index: 100;
 }
 
 .bbg .sub span {
