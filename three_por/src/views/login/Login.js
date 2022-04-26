@@ -1,12 +1,17 @@
 import React from 'react'
 import "./Login.min.css"
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 // import { tsparticles } from 'tsparticles'
 import Particles from 'react-tsparticles'
 import { loadFull } from "tsparticles";
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Login() {
+
+    const navigate = useNavigate()
 
     const options = {
         "background": {
@@ -25,13 +30,14 @@ export default function Login() {
         },
         "interactivity": {
             "events": {
-                "onClick": {
-                    "enable": true,
-                    "mode": "push"
-                },
+                //不能设置点击分裂，会出现粒子移动速度异常
+                // "onClick": {
+                //     "enable": true,
+                //     "mode": "push"
+                // },
                 "onHover": {
                     "enable": true,
-                    "mode": "slow"
+                    "mode": "bubble"
                 }
             },
             "modes": {
@@ -159,11 +165,32 @@ export default function Login() {
 
     //粒子被正确加载到画布中时，这个函数被调用
     const particlesLoaded = (container) => {
-        console.log("123", container);
+        // console.log("123", container);
     };
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
+        //应该是post的，但是没有后端代码
+        axios.get(`http://localhost:8000/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`).then(res => {
+            console.log(res.data)
+            if (res.data.length === 0) {
+                // console.log("登录失败")
+                //antd组件库中的东西message
+                message.error("用户名或密码不正确")
+            } else {
+                //写入token
+                localStorage.setItem('token', JSON.stringify(res.data[0]))
+
+                navigate("/", {replace: true})
+            }
+        }).then(()=>{
+            console.log("login",localStorage.getItem('token'))
+
+        })
+
     };
+
+
+
 
     return (
         <div className='login_bg'>
