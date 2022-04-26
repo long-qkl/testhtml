@@ -26,7 +26,7 @@ module.exports = function(app) {
 react-particles-js已经被弃用
 `npm install react-tsparticles`
 `npm install tsparticles`
-```html
+```javascript
 <Particles
   id="tsparticles"
   init={particlesInit}

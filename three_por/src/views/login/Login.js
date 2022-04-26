@@ -10,9 +10,10 @@ export default function Login() {
 
     const options = {
         "background": {
-              "color": {
+            //这个颜色会覆盖背景图片
+            "color": {
                 "value": "#232741"
-              },
+            },
             "position": "50% 50%",
             "repeat": "no-repeat",
             "size": "cover"
@@ -88,15 +89,15 @@ export default function Login() {
         },
         //  粒子的参数
         "particles": {
-            //         //粒子的颜色
+            //粒子的颜色
             "color": {
                 "value": "#ffffff"
             },
-            //         //是否启动粒子碰撞
+            //是否启动粒子碰撞
             "collisions": {
                 "enable": true,
             },
-            //         //粒子之间的线的参数
+            //粒子之间的线的参数
             "links": {
                 "color": {
                     "value": "#ffffff"
@@ -126,7 +127,8 @@ export default function Login() {
                 "density": {
                     "enable": true
                 },
-                "value": 80
+                //初始粒子数
+                "value": 40
             },
             "opacity": {
                 "value": 0.5,
@@ -152,13 +154,12 @@ export default function Login() {
     }
 
     const particlesInit = async (main) => {
-        // console.log(main);
         await loadFull(main);
     };
 
     //粒子被正确加载到画布中时，这个函数被调用
     const particlesLoaded = (container) => {
-        console.log("123",container);
+        console.log("123", container);
     };
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
