@@ -179,12 +179,9 @@ export default function Login() {
             } else {
                 //写入token
                 localStorage.setItem('token', JSON.stringify(res.data[0]))
-
-                navigate("/", {replace: true})
+                // console.log(123);
+                navigate("/")
             }
-        }).then(()=>{
-            console.log("login",localStorage.getItem('token'))
-
         })
 
     };

@@ -15,6 +15,11 @@ import './NewsSandBox.min.css'
 const { Content } = Layout
 
 export default function NewsSandBox() {
+    //进入主页后，判断是否拥有token验证
+    if(!localStorage.getItem('token')){
+        return <Navigate to="/login" />
+    }
+
     return (
         <Layout>
             {/* 侧边栏(左) */}

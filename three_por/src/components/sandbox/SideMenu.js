@@ -75,7 +75,7 @@ export default function SideMenu() {
     })
   }, [])
 
-  // withRouter在V6版本已经被usenavigated替换
+  // withRouter在V6版本已经被usenavigate替换
   //钩子请不要放在重复调用的函数里面,需要放在组件顶层
   const navigate = useNavigate();
 
