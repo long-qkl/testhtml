@@ -18,6 +18,26 @@ const UserForm = forwardRef((props, ref) => {
         setisDisabled(props.isUpdateDisabled)
     },[props.isUpdateDisabled])
 
+    const { roleId } = JSON.parse(localStorage.getItem("token"))
+    const roleObj = {
+        '1': 'superadmin',
+        '2': 'admin',
+        '3': 'editor'
+    }
+
+    const checkRegionDisabled=()=>{
+        //判断是更新还是添加，分别调用不同方法
+        if(props.isUpdate){
+            if (roleObj[roleId]==='superadmin') {
+                return false
+            }else{
+                return true
+            }
+        }else{
+
+        }
+    }
+
     return (
         <Form layout="vertical" ref={ref} >
             <Form.Item
@@ -50,7 +70,7 @@ const UserForm = forwardRef((props, ref) => {
                 <Select allowClear disabled={isDisable}>
                     {
                         props.regionList.map(item => {
-                            return <Option value={item.value} key={item.id}>{item.title}</Option>
+                            return <Option value={item.value} key={item.id} disabled={checkRegionDisabled()} >{item.title}</Option>
                         })
                     }
                 </Select>

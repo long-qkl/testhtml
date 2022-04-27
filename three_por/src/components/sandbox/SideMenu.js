@@ -80,8 +80,9 @@ export default function SideMenu() {
   const navigate = useNavigate();
 
   //权限控制
-  const checkPagePermission = (item) => {
-    return item.pagepermisson == true
+    const { role: { rights } } = JSON.parse(localStorage.getItem('token'))
+    const checkPagePermission = (item) => {
+    return item.pagepermisson == true && rights.includes(item.key)
     // return item.pagepermisson === 1
   }
   //刷新后默认的选择列表

@@ -80,6 +80,15 @@
       "roleState": true,
       "default": false,
       "id": 9
+    },
+    {
+      "username": "2",
+      "password": "2",
+      "region": "南极洲",
+      "roleId": 2,
+      "roleState": true,
+      "default": false,
+      "id": 10
     }
   ],
   "roles": [
@@ -123,25 +132,25 @@
       "roleType": 2,
       "rights": [
         "/home",
-        "/user-manage",
         "/user-manage/add",
         "/user-manage/delete",
         "/user-manage/update",
         "/user-manage/list",
-        "/news-manage",
         "/news-manage/list",
         "/news-manage/add",
         "/news-manage/update/:id",
         "/news-manage/preview/:id",
         "/news-manage/draft",
         "/news-manage/category",
-        "/audit-manage",
         "/audit-manage/audit",
         "/audit-manage/list",
-        "/publish-manage",
         "/publish-manage/unpublished",
         "/publish-manage/published",
-        "/publish-manage/sunset"
+        "/publish-manage/sunset",
+        "/publish-manage",
+        "/audit-manage",
+        "/user-manage",
+        "/news-manage"
       ]
     },
     {

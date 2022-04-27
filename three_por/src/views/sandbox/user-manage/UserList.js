@@ -30,11 +30,24 @@ export default function UserList() {
     const [isUpdateDisabled, setIsUpdateDisabled] = useState(false)
     const [current, setCurrent] = useState(null)
 
+    const { roleId, region, username } = JSON.parse(localStorage.getItem("token"))
+
+    
     useEffect(() => {
+        const roleObj = {
+            '1': 'superadmin',
+            '2': 'admin',
+            '3': 'editor'
+        }
         setshowTable(true)
         axios.get("http://localhost:8000/users?_expand=role").then((res) => {
             console.log(res.data);
-            setDataSource(res.data)
+            const list=res.data
+            //使当前用户只能看到目前自己拥有的东西
+            setDataSource(roleObj[roleId] === 1 ? list : [
+                ...list.filter(item => item.username === username),
+                ...list.filter(item => item.region === region && roleObj[item.roleId] === 'editor')
+            ])
             setshowTable(false)
         })
         axios.get("http://localhost:8000/regions").then((res) => {
@@ -44,7 +57,7 @@ export default function UserList() {
         axios.get("http://localhost:8000/roles").then((res) => {
             setRoleList(res.data)
         })
-    }, [])
+    }, [roleId, region, username])
 
     const showDeleteConfirm = (item) => {
         confirm({
@@ -117,10 +130,10 @@ export default function UserList() {
             //patch到后端，生成id，再设置datasource ,方便后面的删除和更新
 
             //发起请求，修改数据
-            axios.patch(`http://localhost:8000/users/${current.id}`,{
+            axios.patch(`http://localhost:8000/users/${current.id}`, {
                 ...value,
-            }).then(res=>{
-                console.log('123458',res.data)
+            }).then(res => {
+                console.log('123458', res.data)
                 //再次发起请求，重新获取已经修改的数据
                 axios.get("http://localhost:8000/users?_expand=role").then((res) => {
                     setDataSource(res.data)
@@ -172,7 +185,7 @@ export default function UserList() {
             title: '区域',
             dataIndex: 'region',
             filters: [
-                ...regionList.map(item=>({
+                ...regionList.map(item => ({
                     text: item.title,
                     value: item.value
                 })),
@@ -181,8 +194,8 @@ export default function UserList() {
                     value: ""
                 }
             ],
-            onFilter: (value,item)=>{
-                return item.region===value
+            onFilter: (value, item) => {
+                return item.region === value
             },
             render: (region) => {
                 return <b>{region === '' ? '全球' : region}</b>
@@ -301,7 +314,7 @@ export default function UserList() {
                     handleUpdateOk()
                 }}
             >
-                <UserForm regionList={regionList} roleList={roleList} ref={updateForm} isUpdateDisabled={isUpdateDisabled} />
+                <UserForm regionList={regionList} roleList={roleList} ref={updateForm} isUpdateDisabled={isUpdateDisabled}  isUpdate={true} />
             </Modal>
         </div>
     )

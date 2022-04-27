@@ -5,7 +5,7 @@ import NewsSandBox from '../views/sandbox/NewsSandBox'
 
 export default function IndexRouter() {
  
-    console.log('token',localStorage.getItem('token'))
+    // console.log('token',localStorage.getItem('token'))
     return (
         <HashRouter>
             {/* switch被routes代替，routes包裹route，component={Login}改成element={<Login />} */}

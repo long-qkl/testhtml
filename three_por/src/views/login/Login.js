@@ -171,7 +171,7 @@ export default function Login() {
         // console.log('Received values of form: ', values);
         //应该是post的，但是没有后端代码
         axios.get(`http://localhost:8000/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`).then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             if (res.data.length === 0) {
                 // console.log("登录失败")
                 //antd组件库中的东西message
@@ -185,9 +185,6 @@ export default function Login() {
         })
 
     };
-
-
-
 
     return (
         <div className='login_bg'>
