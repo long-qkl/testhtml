@@ -16,7 +16,7 @@
     .one {
         width: 500px;
         height: 500px;
-        background-color: red;
+        background-color: rgb(37, 0, 245);
         margin: auto;
         margin-top: 200px;
         position: relative;
@@ -74,19 +74,38 @@
 
     //面向对象
     console.log('=====================================================');
-    class Father{
-        constructor(name){
-            this.name=name;
+    class Father {
+        constructor(name) {
+            this.name = name;
         }
-        sing(){
-            console.log(this.name+'会sing');
+        sing() {
+            console.log(this.name + '会sing');
         }
-        song(){
-            console.log(this.name+"不仅会song，还会");
+        song() {
+            console.log(this.name + "不仅会song，还会rap");
         }
     }
-    var f1=new Father("AA");
-    console.log('f1', f1 , f1.sing())
+    var f1 = new Father("AA");
+    console.log('f1', f1, f1.sing(),f1.song())
+
+    console.log('====================面试题================================');
+    function test() {
+        var aa = 0;
+        var testSet = setInterval(function () {
+            aa++;
+            console.log(123);
+            if (aa < 10) {
+                clearInterval(testSet);
+            }
+        }, 20);
+        var testSet1 = setTimeout(function () {
+            console.log(321)
+        }, 1000);
+        for (var i = 0; i < 10; i++) {
+            console.log('test');
+        }
+    }
+    test()
 
 </script>
 
