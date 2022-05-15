@@ -75,13 +75,14 @@ export default function SideMenu() {
     })
   }, [])
 
-  // withRouter在V6版本已经被usenavigated替换
+  // withRouter在V6版本已经被usenavigate替换
   //钩子请不要放在重复调用的函数里面,需要放在组件顶层
   const navigate = useNavigate();
 
   //权限控制
-  const checkPagePermission = (item) => {
-    return item.pagepermisson == true
+    const { role: { rights } } = JSON.parse(localStorage.getItem('token'))
+    const checkPagePermission = (item) => {
+    return item.pagepermisson == true && rights.includes(item.key)
     // return item.pagepermisson === 1
   }
   //刷新后默认的选择列表

@@ -15,10 +15,15 @@ import './NewsSandBox.min.css'
 const { Content } = Layout
 
 export default function NewsSandBox() {
+    //进入主页后，判断是否拥有token验证
+    if(!localStorage.getItem('token')){
+        return <Navigate to="/login" />
+    }
+
     return (
         <Layout>
             {/* 侧边栏(左) */}
-            <SideMenu></SideMenu>
+            <SideMenu/>
 
             <Layout className='site-layout'>
                 {/* 内容头部 */}
@@ -35,10 +40,10 @@ export default function NewsSandBox() {
                     }}
                 >
                     <Routes>
-                        <Route path="/home" element={<Home />}></Route>
-                        <Route path="/user-manage/list" element={<UserList />}></Route>
-                        <Route path="/right-manage/role/list" element={<RoleList />}></Route>
-                        <Route path="/right-manage/right/list" element={<RightList />}></Route>
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/user-manage/list" element={<UserList />} />
+                        <Route path="/right-manage/role/list" element={<RoleList />} />
+                        <Route path="/right-manage/right/list" element={<RightList />} />
 
                         {/* <Navigate from="/" to="/home" /> */}
                         <Route path="/" element={<Navigate to="/home" />} />

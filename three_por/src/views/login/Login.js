@@ -1,18 +1,24 @@
 import React from 'react'
 import "./Login.min.css"
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 // import { tsparticles } from 'tsparticles'
 import Particles from 'react-tsparticles'
 import { loadFull } from "tsparticles";
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Login() {
 
+    const navigate = useNavigate()
+
     const options = {
         "background": {
-              "color": {
+            //这个颜色会覆盖背景图片
+            "color": {
                 "value": "#232741"
-              },
+            },
             "position": "50% 50%",
             "repeat": "no-repeat",
             "size": "cover"
@@ -24,13 +30,14 @@ export default function Login() {
         },
         "interactivity": {
             "events": {
-                "onClick": {
-                    "enable": true,
-                    "mode": "push"
-                },
+                //不能设置点击分裂，会出现粒子移动速度异常
+                // "onClick": {
+                //     "enable": true,
+                //     "mode": "push"
+                // },
                 "onHover": {
                     "enable": true,
-                    "mode": "slow"
+                    "mode": "bubble"
                 }
             },
             "modes": {
@@ -88,15 +95,15 @@ export default function Login() {
         },
         //  粒子的参数
         "particles": {
-            //         //粒子的颜色
+            //粒子的颜色
             "color": {
                 "value": "#ffffff"
             },
-            //         //是否启动粒子碰撞
+            //是否启动粒子碰撞
             "collisions": {
                 "enable": true,
             },
-            //         //粒子之间的线的参数
+            //粒子之间的线的参数
             "links": {
                 "color": {
                     "value": "#ffffff"
@@ -126,7 +133,8 @@ export default function Login() {
                 "density": {
                     "enable": true
                 },
-                "value": 80
+                //初始粒子数
+                "value": 40
             },
             "opacity": {
                 "value": 0.5,
@@ -152,16 +160,30 @@ export default function Login() {
     }
 
     const particlesInit = async (main) => {
-        // console.log(main);
         await loadFull(main);
     };
 
     //粒子被正确加载到画布中时，这个函数被调用
     const particlesLoaded = (container) => {
-        console.log("123",container);
+        // console.log("123", container);
     };
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
+        //应该是post的，但是没有后端代码
+        axios.get(`http://localhost:8000/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`).then(res => {
+            // console.log(res.data)
+            if (res.data.length === 0) {
+                // console.log("登录失败")
+                //antd组件库中的东西message
+                message.error("用户名或密码不正确")
+            } else {
+                //写入token
+                localStorage.setItem('token', JSON.stringify(res.data[0]))
+                // console.log(123);
+                navigate("/")
+            }
+        })
+
     };
 
     return (
