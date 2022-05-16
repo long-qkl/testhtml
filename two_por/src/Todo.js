@@ -99,7 +99,7 @@ class Todo extends React.Component {
                     }}
                     style={{ zIndex: 1 }}
                 />
-                {/* <div className="sub" style={{display:'none'}}>
+                <div className="sub">
                     <Input onsub={this.onsub} onput={this.onput} inputVal={this.state.inputVal} inputKeyup={this.inputKeyup} />
                     <span>任务列表</span>
                     <div>
@@ -115,7 +115,7 @@ class Todo extends React.Component {
                         </ul>
                     </div>
 
-                </div> */}
+                </div>
             </div>
         )
     }
