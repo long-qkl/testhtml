@@ -21,6 +21,7 @@
         transform: translate(-50%,-50%);
         padding: 10px;
         z-index: 100;
+        display: none;
         span{
             display: inline-block;
             width: 100%;
@@ -47,4 +48,13 @@
             }
         }
     }
+}
+// 谷歌取消滚动条
+body::-webkit-scrollbar {
+    display: none;
+}
+
+// ie/edge取消滚动条
+body {
+    -ms-overflow-style: none;
 }
