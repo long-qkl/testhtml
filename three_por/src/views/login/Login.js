@@ -126,7 +126,8 @@ export default function Login() {
                     "right": "out",
                     "top": "out"
                 },
-                "speed": 6,
+                //粒子移动速度
+                "speed": 2,
                 "warp": true
             },
             "number": {
