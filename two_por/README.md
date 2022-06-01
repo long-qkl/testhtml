@@ -73,4 +73,20 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # 粒子插件
 `npm install react-canvas-nest`
 
+```javascript
+import ReactCanvasNest from 'react-canvas-nest'
+
+<ReactCanvasNest
+    className='canvasNest'
+    config={{
+        pointColor: ' 255, 255, 255 ',
+        lineColor: '255,255,255',
+        pointOpacity: 0.5,
+        pointR: 2,
+        count:100
+    }}
+    style={{ zIndex: 1 }}
+/>
+```
+
 后续再改，想办法把mongodb塞进去
