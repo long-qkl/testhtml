@@ -1,4 +1,6 @@
 .bg{
     height: 100vh;
     background-color: #000;
+    position: relative;
+    background-image: url(https://long-qkl.github.io/testhtml/two_por/src/images/122.jpg);
 }

@@ -68,3 +68,37 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### 安装react 17 （即降版本）
+`npm install react@17.x react-dom@17.x`
+因`react 18`和`react 17`的index文件有所不同，在依赖的`react`和`react-dom`降为17.x后，`index`也要有所更改。
+`reportWebVitals`这个可能需要注释掉，经过查找大致的意思是检查性能的，注释也无所谓。
+它在`react 17`中使用的依赖是`web-vitals@1.1.2`，如果需要可自行安装,
+`npm install web-vitals@1.1.2`
+
+这里我使用的是yarn安装的
+`yarn add react@17.x react-dom@17.x`
+`yarn add web-vitals@1.1.2`
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+// import App from './App';
+import Bg from './bg'
+// import reportWebVitals from './reportWebVitals';
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+
+ReactDOM.render(
+  <Bg />,
+  document.getElementById('root')
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// reportWebVitals();
+```
+
+好了，这样就完成了，直接start吧！go go go！
