@@ -71,7 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### 安装react 17 （即降版本）
 `npm install react@17.x react-dom@17.x`
-因`react 18`和`react 17`的index文件有所不同，在依赖的`react`和`react-dom`降为17.x后，`index`也要有所更改。
+因`react 18`和`react 17`的index文件有所不同，在依赖的`react`和`react-dom`降为17.x后，`index`也要有所更改，主要就是`root`有所更改
 `reportWebVitals`这个可能需要注释掉，经过查找大致的意思是检查性能的，注释也无所谓。
 它在`react 17`中使用的依赖是`web-vitals@1.1.2`，如果需要可自行安装,
 `npm install web-vitals@1.1.2`
@@ -80,6 +80,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 `yarn add react@17.x react-dom@17.x`
 `yarn add web-vitals@1.1.2`
 
+`index.js`的更改
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
