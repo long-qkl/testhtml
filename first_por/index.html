@@ -86,7 +86,7 @@
         }
     }
     var f1 = new Father("AA");
-    console.log('f1', f1, f1.sing(),f1.song())
+    console.log('f1', f1, f1.sing(), f1.song())
 
     console.log('====================面试题================================');
     function test() {
@@ -107,6 +107,14 @@
     }
     test()
 
+    console.log("======================================");
+    const scores = [
+        { score: 90, subject: "HTML", weight: 0.2 },
+        { score: 95, subject: "CSS", weight: 0.3 },
+        { score: 85, subject: "JavaScript", weight: 0.5 }
+    ];
+    const result = scores.reduce((x, y) => x + y.score * y.weight, 0); // 89
+    console.log("result",result);
 </script>
 
 </html>
