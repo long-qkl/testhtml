@@ -30,12 +30,30 @@
         /* top: 0; */
         pointer-events: none;
     }
+
+    .two {
+        height: 100px;
+        width: 25%;
+        /* width: 100px; */
+        background-color: aqua;
+
+    }
+
+    .three {
+        height: 100px;
+        width: calc(25% - 20px);
+        /* width: 100px; */
+        background-color: blue;
+    }
 </style>
 
 <body>
     <div class="one">
         <img class="pic" src="https://pic2.zhimg.com/80/v2-e7336dc460a15ecbb4aa79b1f73c0921_720w.jpg" alt="">
     </div>
+
+    <div class="two"></div>
+    <div class="three"></div>
 </body>
 <script>
     var classname = document.querySelector(".one");
@@ -102,6 +120,7 @@
             console.log(321)
         }, 1000);
         for (var i = 0; i < 10; i++) {
+            ~
             console.log('test');
         }
     }
@@ -114,7 +133,58 @@
         { score: 85, subject: "JavaScript", weight: 0.5 }
     ];
     const result = scores.reduce((x, y) => x + y.score * y.weight, 0); // 89
-    console.log("result",result);
+    console.log("result", result);
+
+    console.log("==================日期时间====================");
+
+    const date = new Date()
+
+    console.log(date);
+
+    console.log(date.getDate())
+    console.log(date.getDay())
+    console.log(date.getFullYear())
+    console.log(date.getHours())
+    console.log(date.getMilliseconds())
+    console.log(date.getMonth())
+    console.log(date.getSeconds())
+    console.log(date.getTime())
+
+    console.log("====================================");
+    var strings = "null"
+    var newstr = strings.repeat(20)
+    console.log(newstr);
+    var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4]
+    var arr2 = new Set(arr)
+    var newarr = [...arr2]
+    console.log(newarr);
+
+    console.log("===============闭包=====================");
+
+    function numput(params) {
+        return params+10
+    }
+
+    function foo() {
+        var arr = []
+        for (var i = 0; i < 10; i++) {
+            arr[i] = (
+                function (params) {
+                    return function () {
+                        return params
+                    }
+                }
+            )(numput(i))
+        }
+        return arr
+    }
+
+    var bar = foo()
+    console.log(bar[3]());
+    for (let i = 0; i < foo().length; i++) {
+        console.log(bar[i]());
+    }
+
 </script>
 
 </html>
