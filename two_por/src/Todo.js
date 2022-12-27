@@ -2,8 +2,8 @@
 import React from 'react';
 import './CSS/Todo.min.css';
 // import bgimg from './images/122.jpg';
-// import Input from './Input';
-// import Lists from './Lists';
+import Input from './Input';
+import Lists from './Lists';
 import ReactCanvasNest from 'react-canvas-nest'
 
 class Todo extends React.Component {
@@ -99,7 +99,8 @@ class Todo extends React.Component {
                     }}
                     style={{ zIndex: 1 }}
                 />
-                {/* <div className="sub">
+                <div className="sub" style={{ display: "none" }}>
+                    
                     <Input onsub={this.onsub} onput={this.onput} inputVal={this.state.inputVal} inputKeyup={this.inputKeyup} />
                     <span>任务列表</span>
                     <div>
@@ -114,7 +115,7 @@ class Todo extends React.Component {
                             </li>
                         </ul>
                     </div>
-                </div> */}
+                </div>
             </div>
         )
     }
