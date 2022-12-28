@@ -1,20 +1,35 @@
 const express = require('express');
 const app = express();
+const { APP_PORT, mongodb } = require('./config')
 
-//连接mongodb
-const mongodb = require('mongodb').MongoClient;
-const url="mongodb://localhost:27017"
-const db_name="yzzy";
+// app.get('/', (req, res) => {
+//     res.send('Hello Express~~~~~')
+// })
+
+// app.get('/getdata',(req,res)=>{
+//     res.send('2222222222222222222')
+// })
+
+// app.post('/register',(req,res)=>{
+//     console.log("register");
+// })
+
+// app.post('/login',(req,res)=>{
+//     console.log("登录")
+// })
 
 
-app.get('/',(req,res)=>{
-    res.send('Hello Express')
+/*const appRouter=require("./router/app")
+app.use(appRouter)
+const userRouter = require('./router/user');
+app.use(userRouter)
+*/
 
-    console.log(req,res)
-})
+const router=require("./router")
+app.use("/api/v1",router)
 
-app.listen(3333, () => {
-    console.log("启动服务器成功：http:localhost:3333");
+app.listen(APP_PORT, () => {
+    console.log(`启动服务器成功：http:localhost:${APP_PORT}`);
 });
 
 
